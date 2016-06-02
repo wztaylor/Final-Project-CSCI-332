@@ -1,0 +1,288 @@
+-- phpMyAdmin SQL Dump
+-- version 4.0.10.7
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Dec 09, 2015 at 03:44 PM
+-- Server version: 5.5.44-37.3-log
+-- PHP Version: 5.4.23
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Database: `zact5492_logistics`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Clients`
+--
+
+CREATE TABLE IF NOT EXISTS `Clients` (
+  `clientID` int(3) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `phone` varchar(10) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `street` varchar(255) NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `state` char(2) NOT NULL,
+  `zip` int(5) NOT NULL,
+  PRIMARY KEY (`clientID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
+
+--
+-- Dumping data for table `Clients`
+--
+
+INSERT INTO `Clients` (`clientID`, `name`, `phone`, `email`, `street`, `city`, `state`, `zip`) VALUES
+(1, 'Client 1', '2147483647', 'client1@gmail.com', '55 Bogard St.', 'Charleston', 'SC', 29401),
+(2, 'Client 2', '2147483647', 'client2@gmail.com', '87 George St.', 'Charleston', 'SC', 29401),
+(10, 'Client 3', '8037609420', 'wztaylor01@gmail.com', '23 Line St.', 'Charleston', 'SC', 29403),
+(16, 'Client 4', '8039537797', 'client4@gmail.com', '61 Vanderhorst', 'Charleston', 'SC', 29404);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `ClientsAndContracts`
+--
+CREATE TABLE IF NOT EXISTS `ClientsAndContracts` (
+`Client` varchar(255)
+,`Contract` varchar(255)
+,`type` varchar(255)
+,`details` varchar(255)
+);
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Contracts`
+--
+
+CREATE TABLE IF NOT EXISTS `Contracts` (
+  `contractID` int(3) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `duration` varchar(255) NOT NULL,
+  `details` varchar(255) NOT NULL,
+  `clientID` int(3) NOT NULL,
+  `paymentID` int(3) NOT NULL,
+  PRIMARY KEY (`contractID`),
+  KEY `FKContracts554604` (`clientID`),
+  KEY `FKContracts573396` (`paymentID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=48 ;
+
+--
+-- Dumping data for table `Contracts`
+--
+
+INSERT INTO `Contracts` (`contractID`, `name`, `type`, `duration`, `details`, `clientID`, `paymentID`) VALUES
+(1, 'Contract with Client 1', 'One Time', 'N/A', 'test run from Iron Horse to Warehouse Alpha', 1, 1),
+(2, 'Contract with Client 2', 'Continuous', '3 months', 'continuous widget shipments from Manufacturer 2 to Client 2', 2, 1),
+(3, 'Contract Zeta', 'One time', 'N/A', 'contract from Iron Horse to Client 1 at Warehouse Alpha', 1, 3),
+(4, 'Contract Gamma', 'Weekly Delivery', '6 months', 'Client 1 requires weekly deliveries from Manufacturer 2 for the next six months due to an increase in production', 1, 2),
+(5, 'Contract Omega', 'One time', 'N/A', 'Client 2 needs an emergency shipment of steel beams from Iron Horse', 2, 3),
+(6, 'Client 3 Contract', 'One time', 'N/A', 'New client looking for 3PL company and wants to do a test run', 10, 1),
+(21, 'testing', 'One time', 'N/A', 'test', 1, 1),
+(47, 'testing', '', '', '', 1, 1);
+
+--
+-- Triggers `Contracts`
+--
+DROP TRIGGER IF EXISTS `paymentTrigger`;
+DELIMITER //
+CREATE TRIGGER `paymentTrigger` AFTER INSERT ON `Contracts`
+ FOR EACH ROW BEGIN
+INSERT INTO Payment(contractID,Payment.referenceNumber,Payment.amount,date) VALUES(new.contractID,999,100,CURDATE()); 
+END
+//
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Deliveries`
+--
+
+CREATE TABLE IF NOT EXISTS `Deliveries` (
+  `deliveryID` int(3) NOT NULL AUTO_INCREMENT,
+  `referenceNumber` int(5) NOT NULL,
+  `transportMode` varchar(255) NOT NULL,
+  `pickupLocation` varchar(255) NOT NULL,
+  `destination` varchar(255) NOT NULL,
+  `manufacturerID` int(3) NOT NULL,
+  `contractID` int(3) NOT NULL,
+  `warehouseID` int(3) NOT NULL,
+  PRIMARY KEY (`deliveryID`),
+  KEY `FKDeliveries271785` (`manufacturerID`),
+  KEY `FKDeliveries226478` (`contractID`),
+  KEY `FKDeliveries290834` (`warehouseID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+
+--
+-- Dumping data for table `Deliveries`
+--
+
+INSERT INTO `Deliveries` (`deliveryID`, `referenceNumber`, `transportMode`, `pickupLocation`, `destination`, `manufacturerID`, `contractID`, `warehouseID`) VALUES
+(1, 1, 'Air', 'Iron Horse Manufacturing', 'Warehouse Alpha', 4, 1, 1),
+(4, 754, 'Ground', 'Iron Horse Manufacturing', 'Warehouse Alpha', 4, 3, 1),
+(5, 379, 'Ground', 'Manufacturer 2', 'Warehouse Alpha', 1, 4, 1),
+(6, 279, 'Sea', 'Manufacturer 2', 'Warehouse Beta', 1, 2, 2),
+(7, 923, 'Air', 'Iron Horse Manufacturing', 'Warehouse Beta', 4, 5, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Manufacturer`
+--
+
+CREATE TABLE IF NOT EXISTS `Manufacturer` (
+  `name` varchar(255) NOT NULL,
+  `phone` varchar(10) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `street` varchar(255) NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `state` char(2) NOT NULL,
+  `zip` int(5) NOT NULL,
+  `manufacturerID` int(3) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`manufacturerID`),
+  KEY `manufacturerID` (`manufacturerID`),
+  KEY `manufacturerID_2` (`manufacturerID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+
+--
+-- Dumping data for table `Manufacturer`
+--
+
+INSERT INTO `Manufacturer` (`name`, `phone`, `email`, `street`, `city`, `state`, `zip`, `manufacturerID`) VALUES
+('Manufacturer 2', '2147483647', 'wztaylor01@gmail.com', '23 Line St.', 'Charleston', 'So', 29403, 1),
+('Iron Horse Manufacturing', '3422894712', 'ironhorse@gmail.com', 'Lexington St.', 'Charleston', 'SC', 29401, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Payment`
+--
+
+CREATE TABLE IF NOT EXISTS `Payment` (
+  `paymentID` int(10) NOT NULL AUTO_INCREMENT,
+  `referenceNumber` int(5) NOT NULL,
+  `amount` double NOT NULL,
+  `date` date NOT NULL,
+  `paymentMethod` varchar(255) NOT NULL,
+  `contractID` int(3) NOT NULL,
+  PRIMARY KEY (`paymentID`),
+  KEY `contractID` (`contractID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
+
+--
+-- Dumping data for table `Payment`
+--
+
+INSERT INTO `Payment` (`paymentID`, `referenceNumber`, `amount`, `date`, `paymentMethod`, `contractID`) VALUES
+(1, 1, 100, '2015-12-01', 'credit', 1),
+(2, 2, 25000, '2015-11-01', 'cash', 2),
+(3, 3, 45000, '2016-11-01', 'Other', 3),
+(7, 231, 99999, '0000-00-00', 'credit', 21),
+(21, 999, 100, '2015-12-09', '', 47);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Shipper`
+--
+
+CREATE TABLE IF NOT EXISTS `Shipper` (
+  `shipperID` int(3) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `phone` varchar(10) NOT NULL,
+  `street` varchar(255) NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `state` char(2) NOT NULL,
+  `zip` int(5) NOT NULL,
+  PRIMARY KEY (`shipperID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `Shipper`
+--
+
+INSERT INTO `Shipper` (`shipperID`, `name`, `phone`, `street`, `city`, `state`, `zip`) VALUES
+(1, 'Generic Shipping Co.', '2147483648', '999 Huger St.', 'Charleston', 'SC', 29403);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Warehouses`
+--
+
+CREATE TABLE IF NOT EXISTS `Warehouses` (
+  `warehouseID` int(3) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `phone` varchar(10) NOT NULL,
+  `street` varchar(255) NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `state` char(2) NOT NULL,
+  `zip` int(5) NOT NULL,
+  `clientID` int(3) NOT NULL,
+  PRIMARY KEY (`warehouseID`),
+  KEY `FKWarehouses876632` (`clientID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `Warehouses`
+--
+
+INSERT INTO `Warehouses` (`warehouseID`, `name`, `phone`, `street`, `city`, `state`, `zip`, `clientID`) VALUES
+(1, 'Warehouse Alpha', '8888888888', 'Alpha Court', 'Charleston', 'SC', 29403, 1),
+(2, 'Warehouse Beta', '2308890974', 'Somewhere St.', 'Columbia', 'SC', 29072, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `ClientsAndContracts`
+--
+DROP TABLE IF EXISTS `ClientsAndContracts`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`zact5492`@`localhost` SQL SECURITY DEFINER VIEW `ClientsAndContracts` AS select `c`.`name` AS `Client`,`t`.`name` AS `Contract`,`t`.`type` AS `type`,`t`.`details` AS `details` from (`Clients` `c` join `Contracts` `t`) where (`c`.`clientID` = `t`.`clientID`);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `Contracts`
+--
+ALTER TABLE `Contracts`
+  ADD CONSTRAINT `FKContracts554604` FOREIGN KEY (`clientID`) REFERENCES `Clients` (`clientID`),
+  ADD CONSTRAINT `FKContracts573396` FOREIGN KEY (`paymentID`) REFERENCES `Payment` (`paymentID`);
+
+--
+-- Constraints for table `Deliveries`
+--
+ALTER TABLE `Deliveries`
+  ADD CONSTRAINT `Deliveries_ibfk_1` FOREIGN KEY (`warehouseID`) REFERENCES `Warehouses` (`warehouseID`),
+  ADD CONSTRAINT `FKDeliveries226478` FOREIGN KEY (`contractID`) REFERENCES `Contracts` (`contractID`),
+  ADD CONSTRAINT `FKDeliveries271785` FOREIGN KEY (`manufacturerID`) REFERENCES `Manufacturer` (`manufacturerID`);
+
+--
+-- Constraints for table `Payment`
+--
+ALTER TABLE `Payment`
+  ADD CONSTRAINT `Payment_ibfk_1` FOREIGN KEY (`contractID`) REFERENCES `Contracts` (`contractID`);
+
+--
+-- Constraints for table `Warehouses`
+--
+ALTER TABLE `Warehouses`
+  ADD CONSTRAINT `FKWarehouses876632` FOREIGN KEY (`clientID`) REFERENCES `Clients` (`clientID`);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

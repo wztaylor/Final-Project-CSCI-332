@@ -1,0 +1,24 @@
+[30-Nov-2015 14:25:14 CST6CDT] PHP Parse error:  syntax error, unexpected end of file in /home/zact5492/public_html/Shipping3PL/clients.php on line 38
+[30-Nov-2015 14:31:09 CST6CDT] PHP Parse error:  syntax error, unexpected end of file in /home/zact5492/public_html/Shipping3PL/clients.php on line 38
+[30-Nov-2015 14:32:38 CST6CDT] PHP Parse error:  syntax error, unexpected end of file in /home/zact5492/public_html/Shipping3PL/clients.php on line 32
+[06-Dec-2015 19:15:13 CST6CDT] PHP Parse error:  syntax error, unexpected '{' in /home/zact5492/public_html/Shipping3PL/clientadd.php on line 3
+[06-Dec-2015 19:16:01 CST6CDT] PHP Parse error:  syntax error, unexpected '{' in /home/zact5492/public_html/Shipping3PL/clientadd.php on line 3
+[06-Dec-2015 19:16:37 CST6CDT] PHP Parse error:  syntax error, unexpected '{' in /home/zact5492/public_html/Shipping3PL/clientadd.php on line 2
+[06-Dec-2015 19:17:07 CST6CDT] PHP Parse error:  syntax error, unexpected '{' in /home/zact5492/public_html/Shipping3PL/clientadd.php on line 2
+[06-Dec-2015 19:17:51 CST6CDT] PHP Parse error:  syntax error, unexpected '->' (T_OBJECT_OPERATOR) in /home/zact5492/public_html/Shipping3PL/clientadd.php on line 5
+[06-Dec-2015 19:18:51 CST6CDT] PHP Parse error:  syntax error, unexpected '->' (T_OBJECT_OPERATOR) in /home/zact5492/public_html/Shipping3PL/clientadd.php on line 5
+[06-Dec-2015 19:18:58 CST6CDT] PHP Parse error:  syntax error, unexpected '->' (T_OBJECT_OPERATOR) in /home/zact5492/public_html/Shipping3PL/clientadd.php on line 5
+[06-Dec-2015 19:19:42 CST6CDT] PHP Parse error:  syntax error, unexpected '->' (T_OBJECT_OPERATOR) in /home/zact5492/public_html/Shipping3PL/clientadd.php on line 5
+[06-Dec-2015 19:38:50 CST6CDT] PHP Parse error:  syntax error, unexpected '=' in /home/zact5492/public_html/Shipping3PL/clientsave.php on line 17
+[06-Dec-2015 19:42:31 CST6CDT] PHP Parse error:  syntax error, unexpected '=' in /home/zact5492/public_html/Shipping3PL/clientsave.php on line 17
+[06-Dec-2015 19:46:01 CST6CDT] PHP Parse error:  syntax error, unexpected '=' in /home/zact5492/public_html/Shipping3PL/clientsave.php on line 16
+[06-Dec-2015 19:47:27 CST6CDT] PHP Parse error:  syntax error, unexpected 'email' (T_STRING) in /home/zact5492/public_html/Shipping3PL/clientsave.php on line 17
+[06-Dec-2015 19:50:30 CST6CDT] PHP Parse error:  syntax error, unexpected 'state' (T_STRING) in /home/zact5492/public_html/Shipping3PL/clientsave.php on line 20
+[06-Dec-2015 20:00:15 CST6CDT] PHP Parse error:  syntax error, unexpected end of file in /home/zact5492/public_html/Shipping3PL/contractadd.php on line 28
+[07-Dec-2015 02:03:03 CST6CDT] PHP Parse error:  syntax error, unexpected '"] . "' (T_CONSTANT_ENCAPSED_STRING), expecting ']' in /home/zact5492/public_html/Shipping3PL/paymentsave.php on line 12
+[07-Dec-2015 04:13:42 CST6CDT] PHP Fatal error:  Call to a member function query() on null in /home/zact5492/public_html/Shipping3PL/clientadd.php on line 39
+[07-Dec-2015 04:28:51 CST6CDT] PHP Parse error:  syntax error, unexpected 'New' (T_NEW), expecting ',' or ';' in /home/zact5492/public_html/Shipping3PL/clientadd.php on line 72
+[07-Dec-2015 04:29:52 CST6CDT] PHP Parse error:  syntax error, unexpected 'New' (T_NEW), expecting ',' or ';' in /home/zact5492/public_html/Shipping3PL/clientadd.php on line 72
+[07-Dec-2015 04:30:17 CST6CDT] PHP Parse error:  syntax error, unexpected 'New' (T_NEW), expecting ',' or ';' in /home/zact5492/public_html/Shipping3PL/clientadd.php on line 72
+[09-Dec-2015 12:26:27 CST6CDT] PHP Fatal error:  Call to a member function query() on null in /home/zact5492/public_html/Shipping3PL/clientadd.php on line 39
+[09-Dec-2015 12:26:50 CST6CDT] PHP Fatal error:  Call to a member function query() on null in /home/zact5492/public_html/Shipping3PL/clientadd.php on line 39
